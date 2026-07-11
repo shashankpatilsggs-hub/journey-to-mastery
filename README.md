@@ -39,9 +39,9 @@ StellarFund Live is a fully transparent and non-custodial crowdfunding platform.
 |---|---|
 | **Live Demo** | 🌐 [StellarFund on Vercel](https://stellar-levels.vercel.app/) |
 | **Demo Video** | 🎥 **[⚠️ INSERT YOUR YOUTUBE/LOOM LINK HERE ⚠️]** |
-| **Campaign Contract** | `CDDYMQBKHR4TZ5LO3HCLFF56MFPAVLUECZ4665DAU2US7UMZZY4KDVNQ` |
-| **Badge Contract** | `CDUOSMYK4P7D3QUVH6HYXF5MRCICCC4UVXPJAWDRLYELF33ZXMJZYZ5R` |
-| **Contract Tx Hash** | `c02144f450a87a04747edbac6d2982fb68fb8913aca4460ad6c9a716e838ffe8` ([View on Stellar Expert](https://stellar.expert/explorer/testnet/tx/c02144f450a87a04747edbac6d2982fb68fb8913aca4460ad6c9a716e838ffe8)) |
+| **Campaign Contract** | [`CDDYMQBKHR4TZ5LO3HCLFF56MFPAVLUECZ4665DAU2US7UMZZY4KDVNQ`](https://stellar.expert/explorer/testnet/contract/CDDYMQBKHR4TZ5LO3HCLFF56MFPAVLUECZ4665DAU2US7UMZZY4KDVNQ) |
+| **Badge Contract** | [`CDUOSMYK4P7D3QUVH6HYXF5MRCICCC4UVXPJAWDRLYELF33ZXMJZYZ5R`](https://stellar.expert/explorer/testnet/contract/CDUOSMYK4P7D3QUVH6HYXF5MRCICCC4UVXPJAWDRLYELF33ZXMJZYZ5R) |
+| **Contract Tx Hash** | [`c02144f450a87a04747edbac6d2982fb68fb8913aca4460ad6c9a716e838ffe8`](https://stellar.expert/explorer/testnet/tx/c02144f450a87a04747edbac6d2982fb68fb8913aca4460ad6c9a716e838ffe8) |
 | **Public GitHub Repo** | [Ayan1911/stellar-levels](https://github.com/Ayan1911/stellar-levels) |
 
 ---
