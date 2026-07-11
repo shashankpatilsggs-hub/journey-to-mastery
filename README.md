@@ -33,6 +33,21 @@ StellarFund Live is a fully transparent and non-custodial crowdfunding platform.
 
 ---
 
+## ✨ Detailed Application Overview
+
+### 1. Smart Contract Architecture (Soroban)
+StellarFund Live utilizes a modular, two-contract system deployed on the Soroban Testnet:
+* **Campaign Contract:** The core escrow engine. It tracks the funding goal (`5000 XLM`), the deadline (`14 Days`), and individual user pledges. It securely holds all contributed funds and enforces validation (e.g., rejecting pledges if the deadline has passed).
+* **Badge Contract:** A secondary reward system demonstrating **Inter-contract calls**. When the Campaign Contract detects that a pledge pushes the total funds above the target goal, it automatically makes a cross-contract invocation to the Badge Contract to permanently award an on-chain "Goal Reached" badge to the backer.
+
+### 2. Frontend User Experience
+* **Universal Wallet Manager:** Built using `StellarWalletsKit`, users are not locked into a single ecosystem. They can seamlessly connect, switch between, and sign transactions using Freighter, xBull, Albedo, or Rabet.
+* **Real-Time Activity Feed:** The application uses Soroban Event polling to fetch and display live network events. When a user pledges, their contribution instantly appears in the feed alongside their public key and timestamp.
+* **Robust Error Handling & Edge Cases:** The UI is designed to elegantly handle failure states. Whether a user rejects a signature request, lacks the XLM balance to cover a pledge, or attempts to send funds to an invalid address, they are met with clear, human-readable toast notifications translated directly from Horizon API error codes.
+* **Mobile-First Responsiveness:** The dashboard, wallet modal, and transaction panels fluidly adapt to all screen sizes, ensuring backers can fund campaigns directly from their mobile devices.
+
+---
+
 ## 🔗 Live Links & Contracts
 
 | Resource | Link / Hash / Address |
