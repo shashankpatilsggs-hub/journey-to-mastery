@@ -97,11 +97,16 @@ export const SendPayment: React.FC<SendPaymentProps> = ({ onPaymentSuccess, send
       // Refresh balance
       await onPaymentSuccess();
     } catch (err: any) {
-      console.error('Payment transaction error:', err);
+      console.error(err);
+      let errMsg = err.message;
+      if (err.response?.data?.extras?.result_codes) {
+        const codes = err.response.data.extras.result_codes;
+        errMsg = `Horizon Error: ${codes.transaction || codes.operations?.join(', ')}`;
+      }
       setTxState('error');
 
       // Check for user rejection
-      const msg = err.message || '';
+      const msg = errMsg || '';
       if (
         msg.includes('user reject') || 
         msg.includes('User rejected') || 
