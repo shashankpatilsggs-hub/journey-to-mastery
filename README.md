@@ -53,7 +53,7 @@ StellarFund Live utilizes a modular, two-contract system deployed on the Soroban
 | Resource | Link / Hash / Address |
 |---|---|
 | **Live Demo** | 🌐 [StellarFund on Vercel](https://stellar-levels.vercel.app/) |
-| **Demo Video** | 🎥 **[⚠️ INSERT YOUR YOUTUBE/LOOM LINK HERE ⚠️]** |
+| **Demo Video** | 🎥 **[Watch Demo on Loom](https://www.loom.com/share/1bd1396c00aa472c8b2a58092294c1a3)** |
 | **Campaign Contract** | [`CDDYMQBKHR4TZ5LO3HCLFF56MFPAVLUECZ4665DAU2US7UMZZY4KDVNQ`](https://stellar.expert/explorer/testnet/contract/CDDYMQBKHR4TZ5LO3HCLFF56MFPAVLUECZ4665DAU2US7UMZZY4KDVNQ) |
 | **Badge Contract** | [`CDUOSMYK4P7D3QUVH6HYXF5MRCICCC4UVXPJAWDRLYELF33ZXMJZYZ5R`](https://stellar.expert/explorer/testnet/contract/CDUOSMYK4P7D3QUVH6HYXF5MRCICCC4UVXPJAWDRLYELF33ZXMJZYZ5R) |
 | **Contract Tx Hash** | [`c02144f450a87a04747edbac6d2982fb68fb8913aca4460ad6c9a716e838ffe8`](https://stellar.expert/explorer/testnet/tx/c02144f450a87a04747edbac6d2982fb68fb8913aca4460ad6c9a716e838ffe8) |
