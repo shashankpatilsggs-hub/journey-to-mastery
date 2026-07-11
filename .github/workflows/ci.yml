@@ -1,0 +1,43 @@
+name: StellarFund CI
+
+on:
+  push:
+    branches: [ "master", "main" ]
+  pull_request:
+    branches: [ "master", "main" ]
+
+jobs:
+  test-contracts:
+    name: Build & Test Soroban Contracts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+      - name: Build Contracts
+        run: cargo build --target wasm32-unknown-unknown --release
+        working-directory: ./contracts
+      - name: Run Contract Tests
+        run: cargo test
+        working-directory: ./contracts
+
+  test-frontend:
+    name: Build & Test React Frontend
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - name: Install Dependencies
+        run: npm ci
+        working-directory: ./frontend
+      - name: Run Vitest
+        run: npm run test -- --run
+        working-directory: ./frontend
+      - name: Build Frontend
+        run: npm run build
+        working-directory: ./frontend
