@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { kit } from '../lib/walletKit';
+import { FREIGHTER_ID } from '@creit.tech/stellar-wallets-kit';
 
 interface WalletContextType {
   publicKey: string | null;

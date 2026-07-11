@@ -627,9 +627,9 @@ dependencies = [
 
 [[package]]
 name = "enum-ordinalize"
-version = "4.4.1"
+version = "4.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "07f808d588c10e464ea6f7d3eaed500049eff30aaac103460f61828c2d65b3eb"
+checksum = "fea0dcfa4e54eeb516fe454635a95753ddd39acda650ce703031c6973e315dd5"
 dependencies = [
  "enum-ordinalize-derive",
 ]
