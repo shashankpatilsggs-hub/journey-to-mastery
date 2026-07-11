@@ -1,15 +1,33 @@
 
+import { useState } from 'react';
 import { useWallet } from './hooks/useWallet';
 import { useBalance } from './hooks/useBalance';
+import { useContractEvents } from './hooks/useContractEvents';
 import { WalletConnect } from './components/WalletConnect';
 import { BalanceDisplay } from './components/BalanceDisplay';
 import { SendPayment } from './components/SendPayment';
+import { CampaignCard } from './components/CampaignCard';
+import { PledgeForm } from './components/PledgeForm';
+import { ActivityFeed } from './components/ActivityFeed';
+import { TxStatusToast, type TxStatus } from './components/TxStatusToast';
 import { Coins, Heart, ArrowRight, ShieldAlert } from 'lucide-react';
 import './App.css';
 
 function App() {
   const { publicKey, isConnected } = useWallet();
   const { balance, isFunded, isLoading, refreshBalance } = useBalance(publicKey);
+  const { events, addLocalEvent } = useContractEvents();
+  
+  const [txStatus, setTxStatus] = useState<TxStatus>('idle');
+  const [txMessage, setTxMessage] = useState<string>('');
+
+  const handlePledgeSuccess = (hash: string, amount: string) => {
+    refreshBalance();
+    addLocalEvent(Number(amount), publicKey!);
+    setTxStatus('success');
+    setTxMessage(`Hash: ${hash.substring(0, 6)}...${hash.substring(hash.length - 6)}`);
+    setTimeout(() => setTxStatus('idle'), 4000);
+  };
 
   return (
     <div className="min-h-screen flex flex-col justify-between">
@@ -69,23 +87,46 @@ function App() {
             />
           </div>
 
-          {/* Right Column: Payments and Campaigns (Campaigns in Phase 2) */}
-          <div className="space-y-8">
+          {/* Right Column: Payments and Campaigns */}
+          <div className="space-y-8 flex flex-col">
             {isConnected ? (
-              <SendPayment onPaymentSuccess={refreshBalance} senderBalance={balance} />
+              <>
+                <CampaignCard goal={5000} pledged={2450} deadlineMs={Date.now() + 1000 * 60 * 60 * 24 * 14} />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="space-y-8">
+                    <PledgeForm 
+                      publicKey={publicKey!} 
+                      onPledgeSuccess={handlePledgeSuccess}
+                      onPledgeStart={() => {
+                        setTxStatus('submitting');
+                        setTxMessage('Sending to testnet...');
+                      }}
+                      onPledgeError={(err) => {
+                        setTxStatus('fail');
+                        setTxMessage(err.message);
+                        setTimeout(() => setTxStatus('idle'), 4000);
+                      }}
+                    />
+                    <SendPayment onPaymentSuccess={refreshBalance} senderBalance={balance} />
+                  </div>
+                  <div className="h-[400px]">
+                    <ActivityFeed events={events} />
+                  </div>
+                </div>
+              </>
             ) : (
-              <div className="glass p-8 rounded-2xl text-center space-y-4 shadow-xl border-dashed">
+              <div className="glass p-8 rounded-2xl text-center space-y-4 shadow-xl border-dashed h-full flex flex-col justify-center">
                 <div className="p-4 bg-slate-950/40 rounded-full w-14 h-14 flex items-center justify-center mx-auto border border-slate-800">
                   <ShieldAlert className="h-6 w-6 text-slate-500 animate-pulse-slow" />
                 </div>
                 <div className="space-y-1">
                   <h3 className="text-lg font-bold text-slate-300">Unlock Dashboard Actions</h3>
                   <p className="text-xs text-slate-500 max-w-xs mx-auto leading-relaxed">
-                    Connect your Freighter wallet on the left to start sending testnet XLM payments and interact with smart contracts.
+                    Connect your Freighter, xBull, Albedo, or Rabet wallet to start interacting with the Campaign contract and live feeds.
                   </p>
                 </div>
                 <div className="inline-flex items-center gap-1.5 text-[11px] text-sky-400/80 bg-sky-950/20 border border-sky-800/30 px-3 py-1 rounded-full font-semibold">
-                  Freighter Wallet Required
+                  Wallet Required
                   <ArrowRight className="h-3 w-3" />
                 </div>
               </div>
@@ -93,6 +134,8 @@ function App() {
           </div>
         </section>
       </main>
+
+      <TxStatusToast status={txStatus} message={txMessage} />
 
       {/* Footer */}
       <footer className="border-t border-slate-900 bg-slate-950/80 py-8 mt-12 text-center text-xs text-slate-500 space-y-2">
