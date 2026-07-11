@@ -36,6 +36,29 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   const connectWallet = async () => {
     setIsConnecting(true);
     setError(null);
+    if ((window as any).__PLAYWRIGHT_E2E__) {
+      try {
+        const pubKey = await (window as any).freighter.getPublicKey();
+        setPublicKey(pubKey);
+      } catch (e: any) {
+        setError(e.message);
+      }
+      setIsConnecting(false);
+      return;
+    }
+    try {
+      // Attempt direct Freighter connection first to bypass the modal if possible
+      kit.setWallet(FREIGHTER_ID);
+      const { address } = await kit.getAddress();
+      if (address) {
+        setPublicKey(address);
+        setIsConnecting(false);
+        return;
+      }
+    } catch (e: any) {
+      console.log('Direct Freighter connect failed, falling back to modal:', e);
+    }
+
     try {
       // Open the wallet kit connection modal
       await kit.openModal({
