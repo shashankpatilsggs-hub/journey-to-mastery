@@ -82,9 +82,12 @@ impl StellarFund {
             .instance()
             .set(&DataKey::TotalRaised, &total_raised);
 
-        // Cross-contract call to mint a badge
-        let badge_contract: Address = env.storage().instance().get(&DataKey::BadgeContract).unwrap();
-        env.invoke_contract::<()>(&badge_contract, &soroban_sdk::symbol_short!("mint"), soroban_sdk::vec![&env, donor.to_val()]);
+        // Cross-contract call to mint a badge when goal is reached
+        let target_amount: i128 = env.storage().instance().get(&DataKey::TargetAmount).unwrap();
+        if total_raised >= target_amount {
+            let badge_contract: Address = env.storage().instance().get(&DataKey::BadgeContract).unwrap();
+            env.invoke_contract::<()>(&badge_contract, &soroban_sdk::symbol_short!("mint"), soroban_sdk::vec![&env, env.current_contract_address().to_val(), donor.to_val()]);
+        }
 
         // Emit an event
         env.events()
@@ -132,3 +135,5 @@ impl StellarFund {
         }
     }
 }
+
+mod test;
