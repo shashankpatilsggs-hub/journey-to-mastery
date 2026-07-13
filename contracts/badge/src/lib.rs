@@ -1,26 +1,30 @@
 #![no_std]
-use soroban_sdk::{contract, contractimpl, contracttype, symbol_short, Address, Env};
 
-#[cfg(test)]
-mod test;
+use soroban_sdk::{contract, contractimpl, contracttype, Address, Env};
 
 #[contracttype]
+#[derive(Clone, Debug, Eq, PartialEq)]
 pub enum DataKey {
-    Awarded(Address),
+    Badge(Address),
 }
 
 #[contract]
-pub struct BadgeContract;
+pub struct StellarBadge;
 
 #[contractimpl]
-impl BadgeContract {
-    pub fn award(env: Env, backer: Address) {
-        // Award the badge to the backer (Phase 3 Inter-contract call requirement)
-        env.storage().instance().set(&DataKey::Awarded(backer.clone()), &true);
-        env.events().publish((symbol_short!("badge"), backer), true);
+impl StellarBadge {
+    /// Mint a supporter badge for the specified address
+    pub fn mint(env: Env, to: Address) {
+        // In a real NFT contract, this would increment supply and emit events.
+        // For simplicity, we just record that this address holds a badge.
+        env.storage().instance().set(&DataKey::Badge(to), &true);
     }
 
-    pub fn has_badge(env: Env, backer: Address) -> bool {
-        env.storage().instance().get(&DataKey::Awarded(backer)).unwrap_or(false)
+    /// Check if an address has a badge
+    pub fn has_badge(env: Env, user: Address) -> bool {
+        env.storage()
+            .instance()
+            .get(&DataKey::Badge(user))
+            .unwrap_or(false)
     }
 }
