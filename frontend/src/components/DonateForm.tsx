@@ -70,10 +70,11 @@ export function DonateForm() {
       const signedResult = await StellarWalletsKit.signTransaction(assembledTx.toXDR());
       if (!signedResult.signedTxXdr) throw new Error("User rejected signature");
       
-      const signedTx = xdr.TransactionEnvelope.fromXDR(signedResult.signedTxXdr, "base64");
+      const signedTx = TransactionBuilder.fromXDR(signedResult.signedTxXdr, Networks.TESTNET);
 
       toast.info("Submitting to network...", { id: "tx" });
-      const submitRes = await server.sendTransaction(signedTx as unknown as Parameters<typeof server.sendTransaction>[0]);
+      // @ts-ignore
+      const submitRes = await server.sendTransaction(signedTx);
       
       if (submitRes.status === "ERROR") {
         throw new Error("Submission failed");

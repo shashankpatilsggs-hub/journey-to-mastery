@@ -32,9 +32,9 @@ npm run dev
 ```
 
 ## Deployed Contracts (Testnet)
-  - Campaign/primary contract: CCYM6M5HDC5M6BT4FYDCNTTOJRHD6CZ6S6PLCOBFZGCBG7TPSSX3OOVW
-  - Second/badge contract: CDZMP6ET536FYJEOEC7UB6QIRVXJRDUZBG55E3PH5GZZ3BNQUDKLICST
-  - Transaction hash: [PENDING - To be added after performing live testnet transaction] → [PENDING]
+* **Campaign Contract ID:** `CCYQ3FUACSY4YDCRCC6OK7CKUZ53JE7AQM4N5EYIFVDYCU5KNEJJHXCB`
+* **Badge Contract ID:** `CCZUUO5MZEY2O7IUM6GIC5FHH4J7HWQBJSNVJEZIMIOZ7Z6FAIQVGT7B`
+* **Badge Trigger Tx Hash:** `696841e6fe697943d8ad40cf8f2ec141f40f3ea220e77e102a691cbfec2fde5a`
 
 ## Live Demo
 [PENDING — user will add after deployment]
