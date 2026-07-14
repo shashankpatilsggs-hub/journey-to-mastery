@@ -67,7 +67,9 @@ export function DonateForm() {
       toast.info("Please sign the transaction in your wallet", { id: "tx" });
       
       // Sign using StellarWalletsKit
-      const signedResult = await StellarWalletsKit.signTransaction(assembledTx.toXDR());
+      const signedResult = await StellarWalletsKit.signTransaction(assembledTx.toXDR(), {
+        networkPassphrase: Networks.TESTNET,
+      });
       if (!signedResult.signedTxXdr) throw new Error("User rejected signature");
       
       const signedTx = TransactionBuilder.fromXDR(signedResult.signedTxXdr, Networks.TESTNET);
@@ -95,9 +97,18 @@ export function DonateForm() {
         { id: "tx" }
       );
       setAmount("");
-    } catch (error: unknown) {
-      console.error(error);
-      const msg = error instanceof Error ? error.message : "Unknown error";
+    } catch (error: any) {
+      console.error("Donate error:", error);
+      let msg = "Unknown error";
+      if (error instanceof Error) {
+        msg = error.message;
+      } else if (typeof error === "string") {
+        msg = error;
+      } else if (error && error.error) {
+        msg = error.error;
+      } else if (typeof error === "object") {
+        msg = JSON.stringify(error);
+      }
       toast.error("Transaction failed: " + msg, { id: "tx" });
     } finally {
       setIsSubmitting(false);
