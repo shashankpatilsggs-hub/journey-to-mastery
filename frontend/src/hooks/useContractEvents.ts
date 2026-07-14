@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { rpc } from "@stellar/stellar-sdk";
+import { rpc, xdr, scValToNative } from "@stellar/stellar-sdk";
 
 export interface DonationEvent {
   id: string;
@@ -19,7 +19,6 @@ export function useContractEvents(contractId: string) {
 
     async function pollEvents() {
       try {
-        let cursor = "0"; // In production, store the last cursor
         while (isPolling) {
           const response = await server.getEvents({
             startLedger: 0,
@@ -27,24 +26,45 @@ export function useContractEvents(contractId: string) {
               {
                 type: "contract",
                 contractIds: [contractId],
-                topics: [["*", "Donation"]],
               },
             ],
             limit: 10,
           });
 
           if (response.events && response.events.length > 0) {
-            // Very simplified event parsing for demo purposes
-            const parsedEvents = response.events.map((evt, idx) => ({
-              id: evt.id || `evt-${idx}`,
-              donor: "Unknown (Decoded from XDR)",
-              amount: "XLM",
-              timestamp: new Date().toLocaleTimeString(),
-            }));
-            setEvents(parsedEvents);
+            const newEvents: DonationEvent[] = [];
+            for (const evt of response.events) {
+              try {
+                // Topic 0 is usually the event name ("donate")
+                const topic0 = xdr.ScVal.fromXDR(evt.topic[0], "base64");
+                const eventName = scValToNative(topic0);
+
+                if (eventName === "donate" && evt.topic.length > 1) {
+                  const topic1 = xdr.ScVal.fromXDR(evt.topic[1], "base64");
+                  const donorAddr = scValToNative(topic1);
+                  
+                  const valueXdr = xdr.ScVal.fromXDR(evt.value.xdr, "base64");
+                  const amount = scValToNative(valueXdr);
+
+                  // Formatting the amount (it's in stroops)
+                  const formattedAmount = (Number(amount) / 10000000).toString();
+
+                  newEvents.push({
+                    id: evt.id || `evt-${newEvents.length}`,
+                    donor: `${donorAddr.substring(0, 4)}...${donorAddr.substring(donorAddr.length - 4)}`,
+                    amount: `${formattedAmount} XLM`,
+                    timestamp: new Date(evt.ledgerClosedAt).toLocaleTimeString(),
+                  });
+                }
+              } catch (e) {
+                console.warn("Could not parse event:", e);
+              }
+            }
+            
+            // reverse to show newest first if we assume returned order is oldest to newest, but usually RPC returns newest first
+            setEvents(newEvents);
           }
 
-          // Poll every 5 seconds
           await new Promise((resolve) => setTimeout(resolve, 5000));
         }
       } catch (err) {
