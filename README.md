@@ -45,13 +45,18 @@ npm run dev
 ## Screenshots
 
 ### Level 1
-  - Wallet connected [SCREENSHOT: user-provided]
-  - Balance displayed [SCREENSHOT: user-provided]
-  - Successful transaction [SCREENSHOT: user-provided]
-  - Transaction result shown [SCREENSHOT: user-provided]
+  - Wallet connected:
+    ![Wallet connected](./assets/wallet-connected.png)
+  - Balance displayed:
+    ![Balance displayed](./assets/balance-displayed.png)
+  - Successful transaction:
+    ![Confirm Transaction](./assets/confirm-transaction.png)
+  - Transaction result shown:
+    ![Transaction Result](./assets/transaction-result.png)
 
 ### Level 2
-  - Wallet options modal [SCREENSHOT: user-provided]
+  - Wallet options modal:
+    ![Wallet options modal](./assets/wallet-options-modal.png)
   - 3 Distinct Error States [SCREENSHOT: user-provided]
 
 ### Level 3
