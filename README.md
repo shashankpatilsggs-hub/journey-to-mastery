@@ -37,10 +37,10 @@ npm run dev
 * **Badge Trigger Tx Hash:** `696841e6fe697943d8ad40cf8f2ec141f40f3ea220e77e102a691cbfec2fde5a`
 
 ## Live Demo
-[PENDING — user will add after deployment]
+[StellarFund on Vercel](https://stellar-levels.vercel.app/)
 
 ## Demo Video
-[PENDING — user will add after recording]
+[Watch Demo on Loom](https://www.loom.com/share/1bd1396c00aa472c8b2a58092294c1a3)
 
 ## Screenshots
 
