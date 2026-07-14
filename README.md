@@ -40,7 +40,7 @@ npm run dev
 [StellarFund on Vercel](https://stellar-levels.vercel.app/)
 
 ## Demo Video
-[Watch Demo on Loom](https://www.loom.com/share/1bd1396c00aa472c8b2a58092294c1a3)
+[Watch Demo on Loom](https://www.loom.com/share/8a7741daac7b4931b7bd3ca7b2bf7c9b)
 
 ## Screenshots
 
