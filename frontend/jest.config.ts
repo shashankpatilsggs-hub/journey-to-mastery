@@ -14,6 +14,8 @@ const config: Config = {
   testPathIgnorePatterns: ['<rootDir>/scripts/'],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
+    '^@creit.tech/stellar-wallets-kit$': '<rootDir>/src/__mocks__/stellar-wallets-kit.ts',
+    '^@preact/signals$': '<rootDir>/src/__mocks__/preact-signals.ts',
   },
 };
 
