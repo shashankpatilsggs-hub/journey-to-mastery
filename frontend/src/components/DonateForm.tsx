@@ -33,7 +33,7 @@ export function DonateForm() {
       if (!fundContractId) throw new Error("Contract ID not set");
 
       // We dynamically import Stellar SDK to avoid SSR issues if any
-      const { Contract, rpc, TransactionBuilder, Networks, nativeToScVal, Address, xdr } = await import("@stellar/stellar-sdk");
+      const { Contract, rpc, TransactionBuilder, Networks, nativeToScVal, Address } = await import("@stellar/stellar-sdk");
       const { StellarWalletsKit } = await import("@creit.tech/stellar-wallets-kit");
       
       const server = new rpc.Server("https://soroban-testnet.stellar.org");
@@ -75,7 +75,7 @@ export function DonateForm() {
       const signedTx = TransactionBuilder.fromXDR(signedResult.signedTxXdr, Networks.TESTNET);
 
       toast.info("Submitting to network...", { id: "tx" });
-      // @ts-ignore
+      // @ts-expect-error: sdk type mismatch for sendTransaction
       const submitRes = await server.sendTransaction(signedTx);
       
       if (submitRes.status === "ERROR") {
@@ -97,15 +97,15 @@ export function DonateForm() {
         { id: "tx" }
       );
       setAmount("");
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Donate error:", error);
       let msg = "Unknown error";
       if (error instanceof Error) {
         msg = error.message;
       } else if (typeof error === "string") {
         msg = error;
-      } else if (error && error.error) {
-        msg = error.error;
+      } else if (error && typeof error === "object" && "error" in error) {
+        msg = String((error as { error: unknown }).error);
       } else if (typeof error === "object") {
         msg = JSON.stringify(error);
       }

@@ -48,8 +48,8 @@ jobs:
         target: wasm32-unknown-unknown
         override: true
         
-    - name: Run Cargo Test
-      run: cargo test
-      
     - name: Build Contract
       run: cargo build --target wasm32-unknown-unknown --release
+      
+    - name: Run Cargo Test
+      run: cargo test
