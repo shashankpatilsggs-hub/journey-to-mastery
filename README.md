@@ -1,7 +1,23 @@
 <div align="center">
   <h1>🌟 StellarFund Live</h1>
   <p><strong>A decentralized, secure, and lightning-fast community donation platform powered by Soroban Smart Contracts.</strong></p>
+  
+  ![Network](https://img.shields.io/badge/Network-Stellar_Testnet-blue?style=for-the-badge)
+  ![Tests](https://img.shields.io/badge/Tests-8%2F8_Passing-brightgreen?style=for-the-badge)
+  ![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 </div>
+
+---
+
+## ✅ Verified On-Chain
+| Item | Value |
+|---|---|
+| **Network** | Stellar Testnet |
+| **Campaign Contract** | [`CCYQ3FUACSY4YDCRCC6OK7CKUZ53JE7AQM4N5EYIFVDYCU5KNEJJHXCB`](https://stellar.expert/explorer/testnet/contract/CCYQ3FUACSY4YDCRCC6OK7CKUZ53JE7AQM4N5EYIFVDYCU5KNEJJHXCB) |
+| **Badge Contract** | [`CCZUUO5MZEY2O7IUM6GIC5FHH4J7HWQBJSNVJEZIMIOZ7Z6FAIQVGT7B`](https://stellar.expert/explorer/testnet/contract/CCZUUO5MZEY2O7IUM6GIC5FHH4J7HWQBJSNVJEZIMIOZ7Z6FAIQVGT7B) |
+| **Example Tx (donation → badge mint)** | [`696841e6fe697943d8ad40cf8f2ec141f40f3ea220e77e102a691cbfec2fde5a`](https://stellar.expert/explorer/testnet/tx/696841e6fe697943d8ad40cf8f2ec141f40f3ea220e77e102a691cbfec2fde5a) |
+| **Contract Tests** | 2/2 passing |
+| **Frontend Tests** | 6/6 passing |
 
 ---
 
@@ -33,6 +49,9 @@ graph LR
     D --> E[Campaign Contract]
     E -->|inter-contract call on goal reached| F[Badge Contract]
 ```
+
+**How it Works:** 
+When a user clicks "Donate", the Next.js frontend utilizes `StellarWalletsKit` to prompt the user for a secure signature (e.g., via Freighter). Once signed, the transaction is submitted to the Soroban RPC which invokes the `donate` function on the Campaign Contract. The Campaign Contract increments the donation amount, and if this triggers a goal threshold or qualifies the user, it immediately makes an asynchronous cross-contract call to the `mint` function on the Badge Contract. The Badge Contract's state is permanently updated, which can later be verified independently via the `has_badge` function.
 
 ---
 
