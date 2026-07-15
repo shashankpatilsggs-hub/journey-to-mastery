@@ -132,6 +132,39 @@ npm run dev
 
 ---
 
+## 🖼 Embedded Screenshots
+
+<details>
+<summary>Click to view all visual evidence</summary>
+
+### 1. Wallet Connected
+![Wallet connected](./assets/wallet-connected.png)
+
+### 2. Balance Displayed
+![Balance displayed](./assets/balance-displayed.png)
+
+### 3. Confirm Transaction
+![Confirm Transaction](./assets/confirm-transaction.png)
+
+### 4. Transaction Result
+![Transaction Result](./assets/transaction-result.png)
+
+### 5. Wallet Options Modal
+![Wallet options modal](./assets/wallet-options-modal.png)
+
+### 6. Mobile Responsive UI
+![Mobile Responsive](./assets/mobile-responsive.png)
+
+### 7. Test Output
+![Test output](./assets/test-output.png)
+
+### 8. CI/CD Passing
+![CI/CD passing](./assets/ci-cd-passing.png)
+
+</details>
+
+---
+
 ## 🧪 Testing
 - **Smart Contracts**: Run `cargo test` in the `contracts/` directory to verify cross-contract calls and fund logic.
 - **Frontend**: Run `npm run test` in the `frontend/` directory to execute Jest and React Testing Library tests on components and hooks.
