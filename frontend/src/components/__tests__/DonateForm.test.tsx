@@ -67,8 +67,8 @@ describe("DonateForm Error Handling", () => {
   });
 
   it("handles transaction simulation failure", async () => {
-    (rpc.Api.isSimulationSuccess as jest.Mock).mockReturnValueOnce(false);
-    (rpc.Server as jest.Mock).mockImplementationOnce(() => ({
+    (rpc.Api.isSimulationSuccess as unknown as jest.Mock).mockReturnValueOnce(false);
+    (rpc.Server as unknown as jest.Mock).mockImplementationOnce(() => ({
       getAccount: jest.fn().mockResolvedValue({}),
       simulateTransaction: jest.fn().mockResolvedValue({ error: "HostError: Error(WasmVm, InvalidAction)" }),
     }));

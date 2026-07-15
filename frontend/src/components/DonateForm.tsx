@@ -75,7 +75,6 @@ export function DonateForm() {
       const signedTx = TransactionBuilder.fromXDR(signedResult.signedTxXdr, Networks.TESTNET);
 
       toast.info("Submitting to network...", { id: "tx" });
-      // @ts-expect-error: sdk type mismatch for sendTransaction
       const submitRes = await server.sendTransaction(signedTx);
       
       if (submitRes.status === "ERROR") {

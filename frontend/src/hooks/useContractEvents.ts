@@ -36,14 +36,14 @@ export function useContractEvents(contractId: string) {
             for (const evt of response.events) {
               try {
                 // Topic 0 is usually the event name ("donate")
-                const topic0 = xdr.ScVal.fromXDR(evt.topic[0], "base64");
+                const topic0 = evt.topic[0];
                 const eventName = scValToNative(topic0);
 
                 if (eventName === "donate" && evt.topic.length > 1) {
-                  const topic1 = xdr.ScVal.fromXDR(evt.topic[1], "base64");
+                  const topic1 = evt.topic[1];
                   const donorAddr = scValToNative(topic1);
                   
-                  const valueXdr = xdr.ScVal.fromXDR(evt.value.xdr, "base64");
+                  const valueXdr = evt.value;
                   const amount = scValToNative(valueXdr);
 
                   // Formatting the amount (it's in stroops)
