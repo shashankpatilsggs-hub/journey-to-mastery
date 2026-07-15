@@ -1,3 +1,4 @@
+import { rpc } from "@stellar/stellar-sdk";
 import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { DonateForm } from "../DonateForm";
@@ -66,9 +67,8 @@ describe("DonateForm Error Handling", () => {
   });
 
   it("handles transaction simulation failure", async () => {
-    const { rpc } = require("@stellar/stellar-sdk");
-    rpc.Api.isSimulationSuccess.mockReturnValueOnce(false);
-    rpc.Server.mockImplementationOnce(() => ({
+    (rpc.Api.isSimulationSuccess as jest.Mock).mockReturnValueOnce(false);
+    (rpc.Server as jest.Mock).mockImplementationOnce(() => ({
       getAccount: jest.fn().mockResolvedValue({}),
       simulateTransaction: jest.fn().mockResolvedValue({ error: "HostError: Error(WasmVm, InvalidAction)" }),
     }));

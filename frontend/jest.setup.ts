@@ -3,7 +3,7 @@ import '@testing-library/jest-dom';
 import { TextEncoder, TextDecoder } from 'util';
 
 global.TextEncoder = TextEncoder;
-// @ts-ignore
+// @ts-expect-error
 global.TextDecoder = TextDecoder;
 
 // Mock matchMedia
