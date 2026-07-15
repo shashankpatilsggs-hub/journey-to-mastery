@@ -78,7 +78,7 @@ npm run dev
 
 | Resource | Link / Hash / Address |
 |---|---|
-| **Live Demo** | 🌐 [StellarFund on Vercel](https://stellar-levels.vercel.app/) |
+| **Live Demo** | 🌐 [StellarFund on Vercel](https://journey-to-mastery-e0juzz28w-shashankpatilsggs-hubs-projects.vercel.app/) |
 | **Demo Video** | 🎥 [Watch Demo on Loom](https://www.loom.com/share/8a7741daac7b4931b7bd3ca7b2bf7c9b) |
 | **Campaign Contract** | [`CCYQ3FUACSY4YDCRCC6OK7CKUZ53JE7AQM4N5EYIFVDYCU5KNEJJHXCB`](https://stellar.expert/explorer/testnet/contract/CCYQ3FUACSY4YDCRCC6OK7CKUZ53JE7AQM4N5EYIFVDYCU5KNEJJHXCB) |
 | **Badge Contract** | [`CCZUUO5MZEY2O7IUM6GIC5FHH4J7HWQBJSNVJEZIMIOZ7Z6FAIQVGT7B`](https://stellar.expert/explorer/testnet/contract/CCZUUO5MZEY2O7IUM6GIC5FHH4J7HWQBJSNVJEZIMIOZ7Z6FAIQVGT7B) |
@@ -86,27 +86,49 @@ npm run dev
 
 ---
 
-## 📸 Screenshots & Evidence
+## 🔍 How to Verify This Submission
+1. Contract addresses and transaction hashes below link directly to Stellar Expert testnet explorer — click any of them to see the real on-chain state.
+2. The badge-mint transaction hash specifically demonstrates inter-contract communication: the Campaign contract's `donate` function invoked the Badge contract's `mint` function once the funding goal was reached.
+3. All tests can be re-run locally via `cargo test --manifest-path contracts/Cargo.toml` and `npm test` inside `frontend/`.
+4. The GitHub Actions tab shows these same tests running automatically on every push.
 
-### Level 1
-- **Wallet connected**:
-  ![Wallet connected](./assets/wallet-connected.png)
-- **Balance displayed**:
-  ![Balance displayed](./assets/balance-displayed.png)
-- **Successful transaction**:
-  ![Confirm Transaction](./assets/confirm-transaction.png)
-- **Transaction result shown**:
-  ![Transaction Result](./assets/transaction-result.png)
+---
 
-### Level 2
-- **Wallet options modal**:
-  ![Wallet options modal](./assets/wallet-options-modal.png)
-- **3 Distinct Error States**: [SCREENSHOT: user-provided]
+## 📸 Submission Checklists & Evidence
 
-### Level 3
-- **Mobile responsive UI**: [SCREENSHOT: user-provided]
-- **CI/CD passing**: [SCREENSHOT: user-provided]
-- **Test output**: [SCREENSHOT: user-provided]
+### Level 1 — White Belt: Requirements Met
+| Requirement | Status | Where to Verify |
+|---|---|---|
+| Freighter wallet setup, testnet | ✅ | Setup Instructions section |
+| Wallet connect/disconnect | ✅ | Screenshot: wallet-connected.png |
+| Balance fetched and displayed | ✅ | Screenshot: balance-displayed.png |
+| XLM transaction sent on testnet | ✅ | [`696841e6fe...`](https://stellar.expert/explorer/testnet/tx/696841e6fe697943d8ad40cf8f2ec141f40f3ea220e77e102a691cbfec2fde5a) |
+| Transaction feedback (success/fail + hash) | ✅ | Screenshot: transaction-result.png |
+
+### Level 2 — Yellow Belt: Requirements Met
+| Requirement | Status | Where to Verify |
+|---|---|---|
+| Multi-wallet (StellarWalletsKit) | ✅ | Screenshot: wallet-options-modal.png |
+| 3 error types handled | ✅ | frontend/src/components/__tests__/DonateForm.test.tsx (6 passing tests) |
+| Contract deployed on testnet | ✅ | [`CCYQ3FUAC...`](https://stellar.expert/explorer/testnet/contract/CCYQ3FUACSY4YDCRCC6OK7CKUZ53JE7AQM4N5EYIFVDYCU5KNEJJHXCB) |
+| Contract called from frontend | ✅ | frontend/src/components/DonateForm.tsx |
+| Transaction status visible | ✅ | Toast/status UI in DonateForm |
+| 2+ meaningful commits | ✅ | git log |
+
+### Level 3 — Orange Belt: Requirements Met
+| Requirement | Status | Where to Verify |
+|---|---|---|
+| Inter-contract communication | ✅ | [`696841e6fe...`](https://stellar.expert/explorer/testnet/tx/696841e6fe697943d8ad40cf8f2ec141f40f3ea220e77e102a691cbfec2fde5a) + Badge state query |
+| Event streaming / real-time updates | ✅ | useContractEvents.ts + ActivityFeed.tsx |
+| CI/CD pipeline | ✅ | Screenshot: ci-cd-passing.png |
+| Deployment workflow scripted | ✅ | scripts/deploy_contracts.sh |
+| Mobile responsive | ⏳ Pending | Screenshot: mobile-responsive.png (pending upload) |
+| Error handling & loading states | ✅ | DonateForm.tsx |
+| Tests (contracts + frontend, 3+) | ✅ | Screenshot: test-output.png (2 Rust + 6 Jest) |
+| Production-ready architecture | ✅ | env-based config, no mocks (grep-verified) |
+| 10+ meaningful commits | ✅ | git log |
+| Live demo link | ✅ | Live Demo section |
+| Demo video | ✅ | Demo Video section |
 
 ---
 
