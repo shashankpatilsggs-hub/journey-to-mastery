@@ -3,7 +3,7 @@ import '@testing-library/jest-dom';
 import { TextEncoder, TextDecoder } from 'util';
 
 global.TextEncoder = TextEncoder;
-// @ts-expect-error
+// @ts-expect-error: Polyfill for TextDecoder in jsdom
 global.TextDecoder = TextDecoder;
 
 // Mock matchMedia
