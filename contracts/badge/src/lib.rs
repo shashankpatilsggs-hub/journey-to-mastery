@@ -1,6 +1,6 @@
 #![no_std]
 
-use soroban_sdk::{contract, contractimpl, contracttype, Address, Env};
+use soroban_sdk::{contract, contractimpl, contracttype, symbol_short, Address, Env};
 
 #[contracttype]
 #[derive(Clone, Debug, Eq, PartialEq)]
@@ -16,18 +16,31 @@ pub struct StellarBadge;
 impl StellarBadge {
     /// Initialize the badge contract with the authorized campaign address
     pub fn initialize(env: Env, campaign: Address) {
-        assert!(!env.storage().instance().has(&DataKey::CampaignContract), "Already initialized");
-        env.storage().instance().set(&DataKey::CampaignContract, &campaign);
+        assert!(
+            !env.storage().instance().has(&DataKey::CampaignContract),
+            "Already initialized"
+        );
+        env.storage()
+            .instance()
+            .set(&DataKey::CampaignContract, &campaign);
     }
 
     /// Mint a supporter badge for the specified address
     pub fn mint(env: Env, caller: Address, to: Address) {
         caller.require_auth();
-        let authorized_caller: Address = env.storage().instance().get(&DataKey::CampaignContract).expect("Not initialized");
+        let authorized_caller: Address = env
+            .storage()
+            .instance()
+            .get(&DataKey::CampaignContract)
+            .expect("Not initialized");
         if caller != authorized_caller {
             panic!("unauthorized caller");
         }
-        env.storage().instance().set(&DataKey::Badge(to), &true);
+        env.storage().instance().set(&DataKey::Badge(to.clone()), &true);
+
+        // Emit badge minting event
+        env.events()
+            .publish((symbol_short!("mint"), to), caller);
     }
 
     /// Check if an address has a badge
