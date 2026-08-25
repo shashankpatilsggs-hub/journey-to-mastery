@@ -93,8 +93,8 @@ impl StellarFund {
                 &symbol_short!("mint"),
                 vec![
                     &env,
-                    env.current_contract_address().to_val(),
-                    donor.to_val(),
+                    env.current_contract_address().into_val(&env),
+                    donor.into_val(&env),
                 ],
             );
         }

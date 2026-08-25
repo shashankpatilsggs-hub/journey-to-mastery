@@ -85,9 +85,9 @@ impl SubscriptionManager {
             &symbol_short!("deposit"),
             vec![
                 &env,
-                env.current_contract_address().to_val(),
-                subscriber.to_val(),
-                amount.to_val(),
+                env.current_contract_address().into_val(&env),
+                subscriber.into_val(&env),
+                amount.into_val(&env),
             ],
         );
 
