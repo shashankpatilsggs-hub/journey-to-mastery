@@ -1,8 +1,7 @@
 #![no_std]
 
 use soroban_sdk::{
-    contract, contractimpl, contracttype, symbol_short, token, Address, Env, IntoVal, String,
-    Symbol,
+    contract, contractimpl, contracttype, symbol_short, token, vec, Address, Env, IntoVal,
 };
 
 #[contracttype]
@@ -58,7 +57,9 @@ impl StellarFund {
             .set(&DataKey::TargetAmount, &target_amount);
         env.storage().instance().set(&DataKey::Deadline, &deadline);
         env.storage().instance().set(&DataKey::TotalRaised, &0i128);
-        env.storage().instance().set(&DataKey::BadgeContract, &badge_contract);
+        env.storage()
+            .instance()
+            .set(&DataKey::BadgeContract, &badge_contract);
     }
 
     /// Donate to the campaign
@@ -85,8 +86,17 @@ impl StellarFund {
         // Cross-contract call to mint a badge when goal is reached
         let target_amount: i128 = env.storage().instance().get(&DataKey::TargetAmount).unwrap();
         if total_raised >= target_amount {
-            let badge_contract: Address = env.storage().instance().get(&DataKey::BadgeContract).unwrap();
-            env.invoke_contract::<()>(&badge_contract, &soroban_sdk::symbol_short!("mint"), soroban_sdk::vec![&env, env.current_contract_address().to_val(), donor.to_val()]);
+            let badge_contract: Address =
+                env.storage().instance().get(&DataKey::BadgeContract).unwrap();
+            env.invoke_contract::<()>(
+                &badge_contract,
+                &symbol_short!("mint"),
+                vec![
+                    &env,
+                    env.current_contract_address().to_val(),
+                    donor.to_val(),
+                ],
+            );
         }
 
         // Emit an event
@@ -136,4 +146,5 @@ impl StellarFund {
     }
 }
 
+#[cfg(test)]
 mod test;

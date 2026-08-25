@@ -1,7 +1,9 @@
 [workspace]
 members = [
     "campaign",
-    "badge"
+    "badge",
+    "treasury_vault",
+    "subscription_manager"
 ]
 resolver = "2"
 
