@@ -17,6 +17,7 @@ export default function Home() {
 
   useEffect(() => {
     if (!address) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- reset profile state on disconnect
       setProfile(null);
       return;
     }

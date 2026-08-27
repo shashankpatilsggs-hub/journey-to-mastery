@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { rpc, xdr, scValToNative } from "@stellar/stellar-sdk";
+import { rpc, scValToNative } from "@stellar/stellar-sdk";
 
 export interface DonationEvent {
   id: string;

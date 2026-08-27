@@ -7,8 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
-import { Sparkles, UserCheck, ShieldCheck, Briefcase, Code, Building, Palette } from "lucide-react";
-import { motion } from "framer-motion";
+import { Sparkles, UserCheck, ShieldCheck, Code, Building, Palette } from "lucide-react";
 
 export interface UserProfile {
   address: string;
@@ -39,15 +38,16 @@ export function FTUXModal() {
 
   useEffect(() => {
     if (!address) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- sync reset on wallet disconnect
       setIsOpen(false);
       return;
     }
 
     const savedProfile = localStorage.getItem(`stellar_user_profile_${address}`);
     if (!savedProfile) {
-      // First time user experience triggered
-      const timer = setTimeout(() => setIsOpen(true), 600);
-      return () => clearTimeout(timer);
+      setIsOpen(true);
+    } else {
+      setIsOpen(false);
     }
   }, [address]);
 

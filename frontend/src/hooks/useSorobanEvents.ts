@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback, useRef } from "react";
-import { rpc, scValToNative } from "@stellar/stellar-sdk";
+import { rpc, scValToNative, xdr } from "@stellar/stellar-sdk";
 
 export interface SorobanActivityEvent {
   id: string;
@@ -31,17 +31,17 @@ export function useSorobanEvents(options: UseSorobanEventsOptions = {}) {
 
   const seenIdsRef = useRef<Set<string>>(new Set());
 
-  const parseEvent = useCallback((evt: rpc.Api.RawEventResponse): SorobanActivityEvent | null => {
+  const parseEvent = useCallback((evt: rpc.Api.EventResponse): SorobanActivityEvent | null => {
     try {
       if (!evt.topic || evt.topic.length === 0) return null;
 
-      const topic0 = scValToNative(evt.topic[0]);
+      const topic0 = scValToNative(evt.topic[0] as unknown as xdr.ScVal);
       const eventName = String(topic0);
 
       let actor = "Anonymous";
       if (evt.topic.length > 1) {
         try {
-          const rawActor = String(scValToNative(evt.topic[1]));
+          const rawActor = String(scValToNative(evt.topic[1] as unknown as xdr.ScVal));
           actor = rawActor.length > 8
             ? `${rawActor.substring(0, 4)}...${rawActor.substring(rawActor.length - 4)}`
             : rawActor;
@@ -53,7 +53,7 @@ export function useSorobanEvents(options: UseSorobanEventsOptions = {}) {
       let parsedAmount = "";
       try {
         if (evt.value) {
-          const nativeVal = scValToNative(evt.value);
+          const nativeVal = scValToNative(evt.value as unknown as xdr.ScVal);
           if (typeof nativeVal === "number" || typeof nativeVal === "bigint") {
             const valNum = Number(nativeVal);
             // Convert stroops if large
@@ -153,6 +153,7 @@ export function useSorobanEvents(options: UseSorobanEventsOptions = {}) {
 
   useEffect(() => {
     let isMounted = true;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- initial fetch on mount
     fetchEvents();
 
     const interval = setInterval(() => {

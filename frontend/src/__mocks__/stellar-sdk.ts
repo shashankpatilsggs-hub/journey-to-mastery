@@ -27,14 +27,16 @@ export const Contract = jest.fn().mockImplementation(() => ({
   call: jest.fn(),
 }));
 
-export const TransactionBuilder = jest.fn().mockImplementation(() => ({
+const mockTxBuilder = jest.fn().mockImplementation(() => ({
   addOperation: jest.fn().mockReturnThis(),
   setTimeout: jest.fn().mockReturnThis(),
   build: jest.fn().mockReturnThis(),
   toXDR: jest.fn().mockReturnValue("mock-xdr"),
 }));
 
-TransactionBuilder.fromXDR = jest.fn().mockReturnValue({});
+export const TransactionBuilder = Object.assign(mockTxBuilder, {
+  fromXDR: jest.fn().mockReturnValue({}),
+});
 
 export const Networks = {
   TESTNET: "Test SDF Network ; September 2015",

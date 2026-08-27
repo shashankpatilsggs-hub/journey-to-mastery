@@ -1433,6 +1433,20 @@ dependencies = [
 ]
 
 [[package]]
+name = "stellar-subscription-manager"
+version = "0.1.0"
+dependencies = [
+ "soroban-sdk",
+]
+
+[[package]]
+name = "stellar-treasury-vault"
+version = "0.1.0"
+dependencies = [
+ "soroban-sdk",
+]
+
+[[package]]
 name = "stellar-xdr"
 version = "22.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
