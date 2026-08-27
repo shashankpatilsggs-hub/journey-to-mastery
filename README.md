@@ -5,16 +5,17 @@
   ![Network](https://img.shields.io/badge/Network-Stellar_Testnet-blue?style=for-the-badge)
   ![Tests](https://img.shields.io/badge/Tests-21%2F21_Passing-brightgreen?style=for-the-badge)
   ![Soroban](https://img.shields.io/badge/Soroban-v22_Smart_Contracts-purple?style=for-the-badge)
+  ![CI/CD](https://img.shields.io/badge/CI%2FCD-Passing-success?style=for-the-badge)
   ![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 </div>
 
 ---
 
 > ### 🏆 Mentor Review Quick-Links
-> - **🌐 Live Demo (Vercel):** `https://journey-to-mastery-e0juzz28w-shashankpatilsggs-hubs-projects.vercel.app/`
-> - **🎬 Demo Video:** `https://www.loom.com/share/8a7741daac7b4931b7bd3ca7b2bf7c9b`
-> - **📄 Contract Deployment Address:** `CCYQ3FUACSY4YDCRCC6OK7CKUZ53JE7AQM4N5EYIFVDYCU5KNEJJHXCB`
-> - **🔗 Transaction Hash:** `696841e6fe697943d8ad40cf8f2ec141f40f3ea220e77e102a691cbfec2fde5a`
+> **🌐 Live Demo (Vercel):** `https://journey-to-mastery-e0juzz28w-shashankpatilsggs-hubs-projects.vercel.app/`  
+> **🎬 Demo Video:** `https://www.loom.com/share/8a7741daac7b4931b7bd3ca7b2bf7c9b`  
+> **📄 Contract Deployment Address:** `CCYQ3FUACSY4YDCRCC6OK7CKUZ53JE7AQM4N5EYIFVDYCU5KNEJJHXCB`  
+> **🔗 Transaction Hash:** `696841e6fe697943d8ad40cf8f2ec141f40f3ea220e77e102a691cbfec2fde5a`  
 
 ---
 
@@ -22,12 +23,12 @@
 
 | Item | Value | Explorer Link |
 |---|---|---|
-| **Network** | Stellar Testnet | [Stellar Expert Testnet](https://stellar.expert/explorer/testnet) |
-| **Campaign Contract** | `CCYQ3FUACSY4YDCRCC6OK7CKUZ53JE7AQM4N5EYIFVDYCU5KNEJJHXCB` | [`CCYQ3FUAC...`](https://stellar.expert/explorer/testnet/contract/CCYQ3FUACSY4YDCRCC6OK7CKUZ53JE7AQM4N5EYIFVDYCU5KNEJJHXCB) |
-| **Badge Contract** | `CCZUUO5MZEY2O7IUM6GIC5FHH4J7HWQBJSNVJEZIMIOZ7Z6FAIQVGT7B` | [`CCZUUO5MZ...`](https://stellar.expert/explorer/testnet/contract/CCZUUO5MZEY2O7IUM6GIC5FHH4J7HWQBJSNVJEZIMIOZ7Z6FAIQVGT7B) |
+| **Network** | `Stellar Testnet` | [Stellar Expert Testnet](https://stellar.expert/explorer/testnet) |
+| **Campaign Contract (`StellarFund`)** | `CCYQ3FUACSY4YDCRCC6OK7CKUZ53JE7AQM4N5EYIFVDYCU5KNEJJHXCB` | [`CCYQ3FUAC...`](https://stellar.expert/explorer/testnet/contract/CCYQ3FUACSY4YDCRCC6OK7CKUZ53JE7AQM4N5EYIFVDYCU5KNEJJHXCB) |
+| **Badge Contract (`StellarBadge`)** | `CCZUUO5MZEY2O7IUM6GIC5FHH4J7HWQBJSNVJEZIMIOZ7Z6FAIQVGT7B` | [`CCZUUO5MZ...`](https://stellar.expert/explorer/testnet/contract/CCZUUO5MZEY2O7IUM6GIC5FHH4J7HWQBJSNVJEZIMIOZ7Z6FAIQVGT7B) |
 | **Example Tx (donation → badge mint)** | `696841e6fe697943d8ad40cf8f2ec141f40f3ea220e77e102a691cbfec2fde5a` | [`696841e6fe...`](https://stellar.expert/explorer/testnet/tx/696841e6fe697943d8ad40cf8f2ec141f40f3ea220e77e102a691cbfec2fde5a) |
-| **Contract Rust Unit Tests** | 9/9 passing | Verified locally & CI |
-| **Frontend Jest Unit Tests** | 12/12 passing | Verified locally & CI |
+| **Contract Rust Unit Tests** | `9/9 passing` | Verified locally & CI pipeline |
+| **Frontend Jest Unit Tests** | `12/12 passing` | Verified locally & CI pipeline |
 
 ---
 
@@ -58,7 +59,7 @@ Traditional crowdfunding platforms impose excessive intermediary fees, delayed s
 
 ## 🏗 Advanced Architecture & Inter-Contract Communication
 
-StellarFund utilizes a modular, decoupled architecture consisting of multiple purpose-built Soroban smart contracts interacting via on-chain cross-contract invocations:
+StellarFund is built with a modular, decoupled architecture consisting of four specialized Soroban smart contracts interacting via on-chain cross-contract invocations:
 
 ```mermaid
 graph TD
@@ -80,7 +81,7 @@ graph TD
     end
 ```
 
-### ⚙️ 1. Multi-Contract Architecture
+### ⚙️ 1. Multi-Contract Architecture Overview
 - **`StellarFund` (`contracts/campaign`)**: Manages donation campaigns, target thresholds, funding deadlines, and caller authentication. When donation goals are reached or thresholds triggered, it invokes the Badge contract.
 - **`StellarBadge` (`contracts/badge`)**: Non-transferable supporter credential contract. Only authorized campaign contracts are permitted to execute the `mint` invocation.
 - **`TreasuryVault` (`contracts/treasury_vault`)**: Secure vault for holding platform and subscription reserves, tracking per-user deposit metrics, and enforcing admin-only withdrawals.
@@ -111,9 +112,13 @@ env.invoke_contract::<()>(
 - Upon connecting a wallet for the first time, `FTUXModal.tsx` prompts the user to select their organizational role (**Developer**, **Enterprise**, **DAO Member**, **Creator**), input their company/org name, and pick a custom avatar theme.
 - For reviewer verification, `scripts/seed_distinct_users.js` generates 15 richly differentiated user profiles across various tiers, monthly volumes, and onboarding timelines.
 
+### 📱 5. Mobile-Responsive UX & Error Handling
+- Complete viewport responsiveness across mobile devices with accessible touch controls.
+- Sonner toast notifications handle signature rejection, simulation failures, and insufficient balances gracefully.
+
 ---
 
-## 🚀 Setup & Execution Instructions
+## 🚀 Setup & Execution Instructions (Local)
 
 ### 1. Smart Contracts
 ```bash
@@ -131,13 +136,13 @@ npm run dev
 npm run test
 ```
 
-### 3. Automated Contract Deployment
+### 3. Automated Contract Deployment Pipeline
 ```bash
 chmod +x scripts/deploy_contracts.sh
 ./scripts/deploy_contracts.sh
 ```
 
-### 4. Seed Distinct Users
+### 4. Distinct User Seeding Script
 ```bash
 node scripts/seed_distinct_users.js
 ```
@@ -146,7 +151,7 @@ node scripts/seed_distinct_users.js
 
 ## 🧪 Comprehensive Test Suite (21 Tests Total)
 
-### Smart Contract Tests (9 Tests Passing)
+### 🦀 Smart Contract Tests (9 Tests Passing)
 Run `cargo test` in `contracts/`:
 - `stellar_badge::test_badge_minting`: Validates authorized badge minting & state.
 - `stellar_campaign::test_fund_donation`: Validates donation accounting, token balances, and goal tracking.
@@ -158,7 +163,7 @@ Run `cargo test` in `contracts/`:
 - `stellar_treasury_vault::test_treasury_withdraw`: Tests admin withdrawal mechanics.
 - `stellar_treasury_vault::test_unauthorized_deposit`: Confirms unauthorized caller rejection with panic assertion.
 
-### Frontend Unit Tests (12 Tests Passing)
+### ⚛️ Frontend Unit Tests (12 Tests Passing)
 Run `npm test` in `frontend/`:
 - `ConnectWallet.test.tsx`: Tests disconnected, connecting, and connected wallet flows (3 tests).
 - `DonateForm.test.tsx`: Tests error handling for invalid input, simulation failure, and signature rejection (3 tests).
@@ -173,33 +178,33 @@ Run `npm test` in `frontend/`:
 | Requirement | Status | Where to Verify |
 |---|---|---|
 | Freighter wallet setup, testnet | ✅ | Setup Instructions section |
-| Wallet connect/disconnect | ✅ | Screenshot: wallet-connected.png |
-| Balance fetched and displayed | ✅ | Screenshot: balance-displayed.png |
+| Wallet connect/disconnect | ✅ | Screenshot: `wallet-connected.png` |
+| Balance fetched and displayed | ✅ | Screenshot: `balance-displayed.png` |
 | XLM transaction sent on testnet | ✅ | [`696841e6fe...`](https://stellar.expert/explorer/testnet/tx/696841e6fe697943d8ad40cf8f2ec141f40f3ea220e77e102a691cbfec2fde5a) |
-| Transaction feedback (success/fail + hash) | ✅ | Screenshot: transaction-result.png |
+| Transaction feedback (success/fail + hash) | ✅ | Screenshot: `transaction-result.png` |
 
 ### Level 2 — Yellow Belt: Requirements Met
 | Requirement | Status | Where to Verify |
 |---|---|---|
-| Multi-wallet (StellarWalletsKit) | ✅ | Screenshot: wallet-options-modal.png |
-| 3 error types handled | ✅ | frontend/src/components/__tests__/DonateForm.test.tsx |
+| Multi-wallet (StellarWalletsKit) | ✅ | Screenshot: `wallet-options-modal.png` |
+| 3 error types handled | ✅ | `frontend/src/components/__tests__/DonateForm.test.tsx` |
 | Contract deployed on testnet | ✅ | [`CCYQ3FUAC...`](https://stellar.expert/explorer/testnet/contract/CCYQ3FUACSY4YDCRCC6OK7CKUZ53JE7AQM4N5EYIFVDYCU5KNEJJHXCB) |
-| Contract called from frontend | ✅ | frontend/src/components/DonateForm.tsx |
-| Transaction status visible | ✅ | Toast/status UI in DonateForm |
-| 2+ meaningful commits | ✅ | git log |
+| Contract called from frontend | ✅ | `frontend/src/components/DonateForm.tsx` |
+| Transaction status visible | ✅ | Toast/status UI in `DonateForm` |
+| 2+ meaningful commits | ✅ | `git log` |
 
 ### Level 3 — Orange Belt: Requirements Met
 | Requirement | Status | Where to Verify |
 |---|---|---|
 | Inter-contract communication | ✅ | [`696841e6fe...`](https://stellar.expert/explorer/testnet/tx/696841e6fe697943d8ad40cf8f2ec141f40f3ea220e77e102a691cbfec2fde5a) + Treasury & Badge contracts |
-| Event streaming / real-time updates | ✅ | useSorobanEvents.ts + ActivityFeed.tsx |
-| CI/CD pipeline | ✅ | Screenshot: cicd.png (`.github/workflows/main.yml`) |
-| Deployment workflow scripted | ✅ | scripts/deploy_contracts.sh |
-| Mobile responsive | ✅ | Screenshot: mobile-ui.png |
-| Error handling & loading states | ✅ | DonateForm.tsx & ActivityFeed.tsx |
-| Tests (contracts + frontend, 3+) | ✅ | Screenshot: tests.png (9 Rust + 12 Jest) |
-| Distinct User Onboarding (FTUX) | ✅ | FTUXModal.tsx + scripts/seed_distinct_users.js |
-| 10+ meaningful commits | ✅ | git log (Verified: 16+ atomic commits) |
+| Event streaming / real-time updates | ✅ | `useSorobanEvents.ts` + `ActivityFeed.tsx` |
+| CI/CD pipeline | ✅ | Screenshot: `cicd.png` (`.github/workflows/main.yml`) |
+| Deployment workflow scripted | ✅ | `scripts/deploy_contracts.sh` |
+| Mobile responsive | ✅ | Screenshot: `mobile-ui.png` |
+| Error handling & loading states | ✅ | `DonateForm.tsx` & `ActivityFeed.tsx` |
+| Tests (contracts + frontend, 3+) | ✅ | Screenshot: `tests.png` (9 Rust + 12 Jest) |
+| Distinct User Onboarding (FTUX) | ✅ | `FTUXModal.tsx` + `scripts/seed_distinct_users.js` |
+| 10+ meaningful commits | ✅ | `git log` (Verified: 16+ atomic commits) |
 | Live demo link | ✅ | Live Demo section |
 | Demo video | ✅ | Demo Video section |
 
