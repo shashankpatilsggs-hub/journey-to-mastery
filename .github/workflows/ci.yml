@@ -42,11 +42,9 @@ jobs:
         working-directory: ./contracts
     steps:
     - uses: actions/checkout@v4
-    - uses: actions-rs/toolchain@v1
+    - uses: dtolnay/rust-toolchain@stable
       with:
-        toolchain: stable
-        target: wasm32-unknown-unknown
-        override: true
+        targets: wasm32-unknown-unknown
         
     - name: Build Contract
       run: cargo build --target wasm32-unknown-unknown --release
