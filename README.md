@@ -12,10 +12,10 @@
 ---
 
 > ### 🏆 Mentor Review Quick-Links
-> **🌐 Live Demo (Vercel):** `https://journey-to-mastery-e0juzz28w-shashankpatilsggs-hubs-projects.vercel.app/`  
-> **🎬 Demo Video:** `https://www.loom.com/share/8a7741daac7b4931b7bd3ca7b2bf7c9b`  
-> **📄 Contract Deployment Address:** `CCYQ3FUACSY4YDCRCC6OK7CKUZ53JE7AQM4N5EYIFVDYCU5KNEJJHXCB`  
-> **🔗 Transaction Hash:** `696841e6fe697943d8ad40cf8f2ec141f40f3ea220e77e102a691cbfec2fde5a`  
+> - **🌐 Live Demo (Vercel):** [https://journey-to-mastery-e0juzz28w-shashankpatilsggs-hubs-projects.vercel.app/](https://journey-to-mastery-e0juzz28w-shashankpatilsggs-hubs-projects.vercel.app/)  
+> - **🎬 Demo Video:** [https://www.loom.com/share/8a7741daac7b4931b7bd3ca7b2bf7c9b](https://www.loom.com/share/8a7741daac7b4931b7bd3ca7b2bf7c9b)  
+> - **📄 Contract Deployment Address:** [`CCYQ3FUACSY4YDCRCC6OK7CKUZ53JE7AQM4N5EYIFVDYCU5KNEJJHXCB`](https://stellar.expert/explorer/testnet/contract/CCYQ3FUACSY4YDCRCC6OK7CKUZ53JE7AQM4N5EYIFVDYCU5KNEJJHXCB)  
+> - **🔗 Transaction Hash:** [`696841e6fe697943d8ad40cf8f2ec141f40f3ea220e77e102a691cbfec2fde5a`](https://stellar.expert/explorer/testnet/tx/696841e6fe697943d8ad40cf8f2ec141f40f3ea220e77e102a691cbfec2fde5a)  
 
 ---
 
@@ -257,10 +257,10 @@ Run `npm test` in `frontend/`:
 
 ## 📋 Mentor Submission Checklist
 
-- [ ] Live Demo Link (Vercel)
-- [ ] Demo Video Link (1-2 mins)
-- [ ] Contract Deployment Address
-- [ ] Transaction Hash for Contract Interaction
+- [x] Live Demo Link (Vercel): [https://journey-to-mastery-e0juzz28w-shashankpatilsggs-hubs-projects.vercel.app/](https://journey-to-mastery-e0juzz28w-shashankpatilsggs-hubs-projects.vercel.app/)
+- [x] Demo Video Link (1-2 mins): [https://www.loom.com/share/8a7741daac7b4931b7bd3ca7b2bf7c9b](https://www.loom.com/share/8a7741daac7b4931b7bd3ca7b2bf7c9b)
+- [x] Contract Deployment Address: [`CCYQ3FUACSY4YDCRCC6OK7CKUZ53JE7AQM4N5EYIFVDYCU5KNEJJHXCB`](https://stellar.expert/explorer/testnet/contract/CCYQ3FUACSY4YDCRCC6OK7CKUZ53JE7AQM4N5EYIFVDYCU5KNEJJHXCB)
+- [x] Transaction Hash for Contract Interaction: [`696841e6fe697943d8ad40cf8f2ec141f40f3ea220e77e102a691cbfec2fde5a`](https://stellar.expert/explorer/testnet/tx/696841e6fe697943d8ad40cf8f2ec141f40f3ea220e77e102a691cbfec2fde5a)
 - [x] Screenshot: Mobile responsive UI (`![Mobile UI](./assets/mobile-ui.png)`)
 - [x] Screenshot: CI/CD pipeline running (`![CI/CD](./assets/cicd.png)`)
 - [x] Screenshot: Test output with 3+ passing tests (`![Tests](./assets/tests.png)`)
